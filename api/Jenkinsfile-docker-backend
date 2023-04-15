@@ -10,7 +10,8 @@ pipeline {
         registryCredential = 'naveed44'
         dockerImage = ''
     }
-
+     
+    stages{
 
         stage('Building the docker image') {
             steps {
@@ -45,3 +46,4 @@ pipeline {
             }
         }
     }
+}
