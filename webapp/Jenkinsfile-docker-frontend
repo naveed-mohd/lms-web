@@ -1,13 +1,14 @@
 pipeline {
     agent {
-      label 'docker'
+      label 'dockerlms'
     }
 
     environment {
 
-    DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-     registry = "yellaiahdocker/frontend-lms"
-        registryCredential = 'dockerhub'
+    DOCKERHUB_CREDENTIALS = credentials('naveed44')
+    DOCKER_USER = "naveed44"
+     registry = "naveed44/frontend-lms"
+        registryCredential = 'naveed44'
         dockerImage = ''
     }
 
@@ -16,28 +17,28 @@ pipeline {
 
         stage('Building the docker image') {
             steps {
-                sh 'cd webapp && docker build -t yellaiahdocker/frontend-lms .'
+                sh 'cd webapp && docker build -t naveed44/frontend-lms .'
             }
         }
         stage('Logging into dockerhub account') {
             steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh 'echo $DOCKERHUB_CREDENTIALS | docker login -u $DOCKER_USRER --password-stdin'
             }
         }
         stage('pushing the docker image into dockerhub') {
             steps {
-                  sh 'docker push yellaiahdocker/frontend-lms'
+                  sh 'docker push naveed44/frontend-lms'
             }
         }
         stage('Remove old docker images') {
              steps {
-                 sh 'docker rmi -f yellaiahdocker/frontend-lms'
+                 sh 'docker rmi -f naveed44/frontend-lms'
             }
         }
          stage('Running the docker container') {
             steps {
                   sh 'docker container rm --force fe'
-                  sh 'docker run -dt -p 8000:80 --name fe yellaiahdocker/frontend-lms'
+                  sh 'docker run -dt -p 8000:80 --name fe naveed44/frontend-lms'
             }
         }
     }
