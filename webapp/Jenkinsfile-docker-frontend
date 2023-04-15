@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Logging into dockerhub account') {
             steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS | docker login -u $DOCKER_USRER --password-stdin'
+                sh 'echo $DOCKERHUB_CREDENTIALS | docker login -u $DOCKER_USER --password-stdin'
             }
         }
         stage('pushing the docker image into dockerhub') {
